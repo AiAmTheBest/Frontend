@@ -1,0 +1,58 @@
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.form-container {
+  list-style-type: none;
+  border: 0.1rem #b9b6b6 solid;
+  border-radius: 0.5rem;
+  width: 40rem;
+  padding: 2rem;
+}
+h3 {
+  text-align: center;
+}
+.bodyAll {
+  display: flex;
+  margin-top: 2rem;
+  flex-direction: column;
+}
+input {
+  height: 4rem;
+  border: 0.1rem #b9b6b6 solid;
+  border-radius: 0.5rem;
+}
+label {
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+.containerSignIn {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.signIn {
+  color: rgb(66, 43, 197);
+  padding-left: 5px;
+  font-weight: bold;
+}
+.full-wi {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+.registerUser {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: 0.1rem #b9b6b6 solid;
+  height: 4rem;
+  border-radius: 0.5rem;
+}

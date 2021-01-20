@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToCart } from "../../store/redux/cart/actions";
+import { addToCart, removeFromCart } from "../../store/redux/cart/actions";
 import "./styles.css";
 
 const CartScreen = (props) => {
@@ -19,9 +19,12 @@ const CartScreen = (props) => {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
+  };
+
+  const checkoutHandler = () => {
+    props.history.push("/signin?redirect=shipping");
   };
 
   return (
@@ -46,10 +49,17 @@ const CartScreen = (props) => {
                   </div>
                   <div>
                     Qty:
-                    <select>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
+                    <select
+                      value={item.qty}
+                      onChange={(e) =>
+                        dispatch(addToCart(item.product, e.target.value))
+                      }
+                    >
+                      {[...Array(item.countInStock).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
                     </select>
                     <button
                       type="button"
@@ -71,7 +81,11 @@ const CartScreen = (props) => {
           Subtotal ( {cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
           {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
         </h3>
-        <button className="button primary" disabled={cartItems.length === 0}>
+        <button
+          onClick={checkoutHandler}
+          className="button primary full-width"
+          disabled={cartItems.length === 0}
+        >
           Proceed to Checkout
         </button>
       </div>

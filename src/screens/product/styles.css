@@ -103,3 +103,9 @@ img {
   font-size: 2.5rem;
   text-align: right;
 }
+button {
+  font-size: 1.6rem;
+}
+.full-width {
+  width: 100%;
+}
