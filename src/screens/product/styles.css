@@ -109,3 +109,11 @@ button {
 .full-width {
   width: 100%;
 }
+.btnBack {
+  padding: 1rem;
+  border: 0.1rem #808080 solid;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  background-color: #e9e6da;
+  width: 100%;
+}

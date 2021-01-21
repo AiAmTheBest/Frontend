@@ -42,7 +42,7 @@ const SigninScreen = (props) => {
             {error && <div>{error}</div>}
           </li>
           <li className="bodyAll">
-            <label for="email">Email</label>
+            <label htmlFor="email">Email</label>
             <input
               value={email}
               type="email"
@@ -52,7 +52,7 @@ const SigninScreen = (props) => {
             ></input>
           </li>
           <li className="bodyAll">
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input
               value={password}
               type="password"

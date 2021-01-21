@@ -7,6 +7,7 @@ import CartScreen from "./screens/product/CartScreen";
 import SigninScreen from "./screens/login/SigninScreen";
 import RegisterScreen from "./screens/login/RegisterScreen";
 import { useSelector } from "react-redux";
+import ProductsScreen from "./screens/product/ProductsScreen";
 
 function App() {
   const openMenu = () => {
@@ -29,7 +30,7 @@ function App() {
             <Link to="/">Amazona</Link>
           </div>
           <div className="header-links">
-            <a href="cart.html">Cart</a>
+            <Link to="/products">Cart</Link>
             {userInfo ? (
               <Link to="/profile">{userInfo.name}</Link>
             ) : (
@@ -53,6 +54,7 @@ function App() {
         </aside>
         <main className="main">
           <div className="content">
+            <Route path="/products" component={ProductsScreen} />
             <Route path="/signin" component={SigninScreen} />
             <Route path="/register" component={RegisterScreen} />
             <Route path="/product/:id" component={ProductScreen} />

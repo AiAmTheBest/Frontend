@@ -46,17 +46,17 @@ const RegisterScreen = (props) => {
             {error && <div>{error}</div>}
           </li>
           <li className="bodyAll">
-            <label for="name">Your name</label>
+            <label htmlFor="name">Your name</label>
             <input
               value={name}
-              type="name"
+              type="text"
               name="name"
               id="name"
               onChange={(e) => handleChange("name", e.target.value)}
             ></input>
           </li>
           <li className="bodyAll">
-            <label for="email">Email</label>
+            <label htmlFor="email">Email</label>
             <input
               value={email}
               type="email"
@@ -66,7 +66,7 @@ const RegisterScreen = (props) => {
             ></input>
           </li>
           <li className="bodyAll">
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input
               value={password}
               type="password"
@@ -76,7 +76,7 @@ const RegisterScreen = (props) => {
             ></input>
           </li>
           <li className="bodyAll">
-            <label for="password">Re-enter Password</label>
+            <label htmlFor="confirmPassword">Re-enter Password</label>
             <input
               value={confirmPassword}
               type="password"
