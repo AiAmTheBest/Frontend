@@ -6,6 +6,7 @@ import HomeScreen from "./screens/home/HomeScreen";
 import CartScreen from "./screens/product/CartScreen";
 import SigninScreen from "./screens/login/SigninScreen";
 import RegisterScreen from "./screens/login/RegisterScreen";
+import { useSelector } from "react-redux";
 
 function App() {
   const openMenu = () => {
@@ -15,6 +16,9 @@ function App() {
   const closeMenu = () => {
     document.querySelector(".sidebar").classList.remove("open");
   };
+
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
 
   return (
     <BrowserRouter>
@@ -26,7 +30,11 @@ function App() {
           </div>
           <div className="header-links">
             <a href="cart.html">Cart</a>
-            <Link to="/signin">Sign In</Link>
+            {userInfo ? (
+              <Link to="/profile">{userInfo.name}</Link>
+            ) : (
+              <Link to="/signin">Sign In</Link>
+            )}
           </div>
         </header>
         <aside className="sidebar">

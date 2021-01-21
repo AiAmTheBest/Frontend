@@ -30,8 +30,7 @@ label {
 }
 .containerSignIn {
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 .signIn {
   color: rgb(66, 43, 197);

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { register } from "../../store/redux/user/actions";
 import "./styles.css";
 
 const RegisterScreen = (props) => {
@@ -16,9 +17,22 @@ const RegisterScreen = (props) => {
     setUser({ ...user, [field]: value });
   };
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-  };
+  const submitHandler = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch(register(name, email, password));
+    },
+    [name, email, password]
+  );
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, userInfo, error } = userRegister;
+
+  useEffect(() => {
+    if (userInfo) {
+      props.history.push("/");
+    }
+  }, [userInfo]);
 
   return (
     <div className="form">
@@ -28,6 +42,10 @@ const RegisterScreen = (props) => {
             <h3>Create account</h3>
           </li>
           <li>
+            {loading && <div>Loading...</div>}
+            {error && <div>{error}</div>}
+          </li>
+          <li className="bodyAll">
             <label for="name">Your name</label>
             <input
               value={name}
@@ -37,7 +55,7 @@ const RegisterScreen = (props) => {
               onChange={(e) => handleChange("name", e.target.value)}
             ></input>
           </li>
-          <li>
+          <li className="bodyAll">
             <label for="email">Email</label>
             <input
               value={email}
@@ -47,7 +65,7 @@ const RegisterScreen = (props) => {
               onChange={(e) => handleChange("email", e.target.value)}
             ></input>
           </li>
-          <li>
+          <li className="bodyAll">
             <label for="password">Password</label>
             <input
               value={password}
@@ -57,7 +75,7 @@ const RegisterScreen = (props) => {
               onChange={(e) => handleChange("password", e.target.value)}
             ></input>
           </li>
-          <li>
+          <li className="bodyAll">
             <label for="password">Re-enter Password</label>
             <input
               value={confirmPassword}
@@ -67,15 +85,13 @@ const RegisterScreen = (props) => {
               onChange={(e) => handleChange("confirmPassword", e.target.value)}
             ></input>
           </li>
-          <li>
-            <Link to="/register" className="button full-wi">
-              Create your amazona account
-            </Link>
-          </li>
+          <button type="submit" className="button full-wi">
+            Create your amazona account
+          </button>
           <li className="containerSignIn">
-            <a>Already have an account?</a>
-            <Link to="/signin">
-              <a className="signIn">Sign-In</a>
+            Already have an account?
+            <Link className="signIn" to="/signin">
+              Sign-In
             </Link>
           </li>
         </ul>

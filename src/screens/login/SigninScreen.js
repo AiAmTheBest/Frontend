@@ -61,11 +61,6 @@ const SigninScreen = (props) => {
               onChange={(e) => handleChange("password", e.target.value)}
             ></input>
           </li>
-          {/* <li>
-            <Link to="/" className="button full-wi">
-              Sign-In
-            </Link>
-          </li> */}
           <button type="submit" className="button full-wi">
             Sign-In
           </button>
