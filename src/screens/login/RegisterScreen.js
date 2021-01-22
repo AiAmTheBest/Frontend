@@ -5,6 +5,10 @@ import { register } from "../../store/redux/user/actions";
 import "./styles.css";
 
 const RegisterScreen = (props) => {
+  const redirect = props.location.search
+    ? props.location.search.split("=")[1]
+    : "/";
+
   const dispatch = useDispatch();
   const [user, setUser] = useState({
     name: "",
@@ -30,7 +34,7 @@ const RegisterScreen = (props) => {
 
   useEffect(() => {
     if (userInfo) {
-      props.history.push("/");
+      props.history.push(redirect);
     }
   }, [userInfo]);
 
@@ -90,7 +94,10 @@ const RegisterScreen = (props) => {
           </button>
           <li className="containerSignIn">
             Already have an account?
-            <Link className="signIn" to="/signin">
+            <Link
+              to={redirect === "/" ? "signin" : "signin?redirect=" + redirect}
+              className="signIn"
+            >
               Sign-In
             </Link>
           </li>

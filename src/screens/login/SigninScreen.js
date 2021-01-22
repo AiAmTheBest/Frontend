@@ -6,6 +6,9 @@ import "./styles.css";
 
 const SigninScreen = (props) => {
   const dispatch = useDispatch();
+  const redirect = props.location.search
+    ? props.location.search.split("=")[1]
+    : "/";
   const userSignin = useSelector((state) => state.userSignin);
   const { loading, userInfo, error } = userSignin;
   const [user, setUser] = useState({
@@ -18,7 +21,7 @@ const SigninScreen = (props) => {
   };
   useEffect(() => {
     if (userInfo) {
-      props.history.push("/");
+      props.history.push(redirect);
     }
   }, [userInfo]);
 
@@ -66,7 +69,12 @@ const SigninScreen = (props) => {
           </button>
           <li>New to amazona?</li>
           <li>
-            <Link to="/register" className="registerUser">
+            <Link
+              to={
+                redirect === "/" ? "register" : "register?redirect=" + redirect
+              }
+              className="registerUser"
+            >
               Create your amazona account
             </Link>
           </li>

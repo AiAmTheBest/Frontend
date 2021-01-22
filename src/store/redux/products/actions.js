@@ -9,6 +9,9 @@ import {
   PRODUCT_SAVE_REQUEST,
   PRODUCT_SAVE_SUCCESS,
   PRODUCT_SAVE_FAIL,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
 } from "./types";
 
 const listProducts = () => async (dispatch) => {
@@ -27,7 +30,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
     const {
       userSignin: { userInfo },
     } = getState();
-    if (!product._id) {
+    if (!product.id) {
       const { data } = await axios.post("/api/products", product, {
         headers: {
           Authorization: "Bearer" + userInfo.token,
@@ -35,7 +38,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
       });
       dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
     } else {
-      const { data } = await axios.put("/api/products" + product._id, product, {
+      const { data } = await axios.put("/api/products/" + product.id, product, {
         headers: {
           Authorization: "Bearer" + userInfo.token,
         },
@@ -44,6 +47,23 @@ const saveProduct = (product) => async (dispatch, getState) => {
     }
   } catch (error) {
     dispatch({ type: PRODUCT_SAVE_FAIL, payload: error.message });
+  }
+};
+
+const deleteProduct = (productId) => async (dispatch, getState) => {
+  try {
+    const {
+      userSignin: { userInfo },
+    } = getState();
+    dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
+    const { data } = await axios.delete("/api/products/" + productId, {
+      headers: {
+        Authorization: "Bearer" + userInfo.token,
+      },
+    });
+    dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });
+  } catch (error) {
+    dispatch({ type: PRODUCT_DELETE_FAIL, payload: error.message });
   }
 };
 
@@ -57,4 +77,4 @@ const detailsProduct = (productId) => async (dispatch) => {
   }
 };
 
-export { listProducts, detailsProduct, saveProduct };
+export { listProducts, detailsProduct, saveProduct, deleteProduct };

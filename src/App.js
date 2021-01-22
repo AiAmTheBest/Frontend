@@ -8,6 +8,9 @@ import SigninScreen from "./screens/login/SigninScreen";
 import RegisterScreen from "./screens/login/RegisterScreen";
 import { useSelector } from "react-redux";
 import ProductsScreen from "./screens/product/ProductsScreen";
+import ShippingScreen from "./screens/shipping/ShippingScreen";
+import PaymentScreen from "./screens/shipping/PaymentScreen";
+import PlaceOrderScreen from "./screens/shipping/PlaceOrderScreen";
 
 function App() {
   const openMenu = () => {
@@ -54,6 +57,9 @@ function App() {
         </aside>
         <main className="main">
           <div className="content">
+            <Route path="/placeorder" component={PlaceOrderScreen} />
+            <Route path="/payment" component={PaymentScreen} />
+            <Route path="/shipping" component={ShippingScreen} />
             <Route path="/products" component={ProductsScreen} />
             <Route path="/signin" component={SigninScreen} />
             <Route path="/register" component={RegisterScreen} />

@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import { cartReducer } from "./redux/cart/reducers";
 import Cookie from "js-cookie";
 import {
+  productDeleteReducer,
   productDetailsReducer,
   productListReducer,
   productSaveReducer,
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
   productSave: productSaveReducer,
+  productDelete: productDeleteReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
