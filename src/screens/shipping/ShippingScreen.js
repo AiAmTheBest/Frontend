@@ -21,7 +21,7 @@ const ShippingScreen = (props) => {
   const submitHandler = useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(saveShipping(address, city, postalCode, country));
+      dispatch(saveShipping({ address, city, postalCode, country }));
       props.history.push("payment");
     },
     [address, city, postalCode, country]

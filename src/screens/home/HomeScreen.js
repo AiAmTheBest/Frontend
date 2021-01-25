@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { listProducts } from "../../store/redux/products/actions";
 import "./styles.css";
+import ReactStars from "react-rating-stars-component";
 
 const HomeScreen = () => {
   const productList = useSelector((state) => state.productList);
@@ -12,7 +13,6 @@ const HomeScreen = () => {
   useEffect(() => {
     dispatch(listProducts());
   }, []);
-  console.log("products: ", products);
   return loading ? (
     <div>Loading...</div>
   ) : error ? (
@@ -30,7 +30,16 @@ const HomeScreen = () => {
             </div>
             <div className="product-brand">{item.brand}</div>
             <div className="product-price">{`$${item.price}`}</div>
-            <div className="product-rating">{`${item.rating} Star (${item.numReviews} Reviews)`}</div>
+            <div className="product-rating">
+              <ReactStars
+                value={item.rating}
+                edit={false}
+                count={5}
+                size={24}
+                activeColor="#ffd700"
+              />
+              {`(${item.numReviews} Reviews)`}
+            </div>
           </div>
         </li>
       ))}

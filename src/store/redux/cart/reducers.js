@@ -5,7 +5,10 @@ import {
   CART_SAVE_SHIPPING,
 } from "./types";
 
-const cartReducer = (state = { cartItems: [] }, action) => {
+const cartReducer = (
+  state = { cartItems: [], shipping: {}, payment: {} },
+  action
+) => {
   switch (action.type) {
     case CART_ADD_ITEM:
       const item = action.payload;

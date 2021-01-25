@@ -1,32 +1,25 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps";
+import "./styles.css";
 
 const PlaceOrderScreen = (props) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems, shipping, payment } = cart;
-
-  if (!shipping) {
-    props.location.push("/shipping");
+  if (!shipping.address) {
+    props.history.push("/shipping");
+  } else if (!payment) {
+    props.history.push("/payment");
   }
 
-  if (!payment) {
-    props.location.push("/payment");
-  }
+  const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
+  const shippingPrice = itemsPrice > 100 ? 0 : 10;
+  const taxPrice = 0.15 * itemsPrice;
+  const totalPrice = itemsPrice + shippingPrice + taxPrice;
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, qty));
-    }
-  }, []);
-
-  const removeFromCartHandler = (productId) => {
-    dispatch(removeFromCart(productId));
-  };
-
-  const checkoutHandler = () => {
-    props.history.push("/signin?redirect=shipping");
+  const placeOrderHandler = () => {
+    console.log("abc");
   };
 
   return (
@@ -37,13 +30,13 @@ const PlaceOrderScreen = (props) => {
           <div>
             <h3>Shipping</h3>
             <div>
-              {cart.shipping.address}, {cart.shipping.city},
-              {cart.shipping.postalCode}, {cart.shipping.country},
+              {shipping.address}, {shipping.city},{shipping.postalCode},{" "}
+              {shipping.country},
             </div>
           </div>
           <div>
             <h3>Payment</h3>
-            <div>Payment Method: {cart.payment.paymentMethod}</div>
+            <div>Payment Method: {payment}</div>
           </div>
           <div>
             <ul className="cart-list-container">
@@ -54,8 +47,8 @@ const PlaceOrderScreen = (props) => {
               {cartItems.length === 0 ? (
                 <div>Cart is empty</div>
               ) : (
-                cartItems.map((item) => (
-                  <li>
+                cartItems.map((item, index) => (
+                  <li key={index}>
                     <div className="cart-image">
                       <img src={item.image} alt="product" />
                     </div>
@@ -63,28 +56,7 @@ const PlaceOrderScreen = (props) => {
                       <div>
                         <Link to={"/product/" + item.product}>{item.name}</Link>
                       </div>
-                      <div>
-                        Qty:
-                        <select
-                          value={item.qty}
-                          onChange={(e) =>
-                            dispatch(addToCart(item.product, e.target.value))
-                          }
-                        >
-                          {[...Array(item.countInStock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </select>
-                        <button
-                          type="button"
-                          className="button"
-                          onClick={() => removeFromCartHandler(item.product)}
-                        >
-                          Delete
-                        </button>
-                      </div>
+                      <div>Qty: {item.qty}</div>
                     </div>
                     <div className="cart-price">${item.price}</div>
                   </li>
@@ -94,17 +66,36 @@ const PlaceOrderScreen = (props) => {
           </div>
         </div>
         <div className="placeorder-action">
-          <h3>
-            Subtotal ( {cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
-            {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
-          </h3>
-          <button
-            onClick={checkoutHandler}
-            className="button primary full-width"
-            disabled={cartItems.length === 0}
-          >
-            Proceed to Checkout
-          </button>
+          <ul>
+            <li>
+              <button
+                className="button primary full-width"
+                disabled={cartItems.length === 0}
+                onClick={placeOrderHandler}
+              >
+                Place Order
+              </button>
+            </li>
+            <li>
+              <h3>Order Summary</h3>
+            </li>
+            <li>
+              <div>Items</div>
+              <div>${itemsPrice}</div>
+            </li>
+            <li>
+              <div>Shipping</div>
+              <div>${shippingPrice}</div>
+            </li>
+            <li>
+              <div>Items</div>
+              <div>${taxPrice}</div>
+            </li>
+            <li>
+              <div>Items</div>
+              <div>${totalPrice}</div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
