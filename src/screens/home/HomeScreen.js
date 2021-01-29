@@ -36,7 +36,10 @@ const HomeScreen = () => {
                 edit={false}
                 count={5}
                 size={24}
-                activeColor="#ffd700"
+                isHalf={true}
+                emptyIcon={<i className="far fa-star"></i>}
+                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                fullIcon={<i className="fa fa-star"></i>}
               />
               {`(${item.numReviews} Reviews)`}
             </div>

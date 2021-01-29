@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { select } from "../../StaticData";
 import { detailsProduct } from "../../store/redux/products/actions";
 import "./styles.css";
+import ReactStars from "react-rating-stars-component";
 
 const ProductScreen = (props) => {
   const [qty, setQty] = useState(1);
@@ -38,7 +39,17 @@ const ProductScreen = (props) => {
                 <h4>{product.name}</h4>
               </li>
               <li>
-                {product.rating} Stars ({product.numReviews} Reviews)
+                <ReactStars
+                  value={product.rating}
+                  edit={false}
+                  count={5}
+                  size={24}
+                  isHalf={true}
+                  emptyIcon={<i className="far fa-star"></i>}
+                  halfIcon={<i className="fa fa-star-half-alt"></i>}
+                  fullIcon={<i className="fa fa-star"></i>}
+                />
+                ({product.numReviews} Reviews)
               </li>
               <li>
                 Price: <b>${product.price}</b>

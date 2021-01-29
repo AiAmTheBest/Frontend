@@ -88,11 +88,11 @@ const PlaceOrderScreen = (props) => {
               <div>${shippingPrice}</div>
             </li>
             <li>
-              <div>Items</div>
+              <div>Tax</div>
               <div>${taxPrice}</div>
             </li>
             <li>
-              <div>Items</div>
+              <div>Total</div>
               <div>${totalPrice}</div>
             </li>
           </ul>

@@ -11,6 +11,7 @@ import ProductsScreen from "./screens/product/ProductsScreen";
 import ShippingScreen from "./screens/shipping/ShippingScreen";
 import PaymentScreen from "./screens/shipping/PaymentScreen";
 import PlaceOrderScreen from "./screens/shipping/PlaceOrderScreen";
+import HistoryBuy from "./screens/product/PurchasedProduct.js/HistoryBuy";
 
 function App() {
   const openMenu = () => {
@@ -57,6 +58,7 @@ function App() {
         </aside>
         <main className="main">
           <div className="content">
+            <Route path="/history" component={HistoryBuy} />
             <Route path="/placeorder" component={PlaceOrderScreen} />
             <Route path="/payment" component={PaymentScreen} />
             <Route path="/shipping" component={ShippingScreen} />
